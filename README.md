@@ -1,1 +1,0 @@
-# pk.questlab.capella.testgenerator

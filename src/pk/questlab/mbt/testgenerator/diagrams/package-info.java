@@ -4,4 +4,4 @@
  * @version 0.1
  * Package info
  */
-package pk.questlab.capella.testgenerator.diagrams;
+package pk.questlab.mbt.testgenerator.diagrams;

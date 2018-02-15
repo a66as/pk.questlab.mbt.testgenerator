@@ -2,9 +2,9 @@
  * @author Muhammad Abbas
  * (c) 2018, QUEST Lab, Pakistan
  * @version 0.1
- * TODO
+ *  Auto generated activator for the plugin
  */
-package pk.questlab.capella.testgenerator;
+package pk.questlab.mbt.testgenerator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

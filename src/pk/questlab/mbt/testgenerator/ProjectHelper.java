@@ -2,11 +2,12 @@
  * @author Muhammad Abbas
  * (c) 2018, QUEST Lab, Pakistan
  * @version 0.1
- * TODO
+ * This class extracts all the project models and populates the diagrams pkg.
  */
-package pk.questlab.capella.testgenerator;
+package pk.questlab.mbt.testgenerator;
 
-import java.util.Collection;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
@@ -20,33 +21,24 @@ private static String melodyFile;
 private static String metaFile;
 private static Session siriusSession;
 /*
- * @param TODO
- * Description: TODO
- * @return TODO
+ * @param projectName from the UI
+ * Description: This function initiates the project and extract its data
  * */
+@SuppressWarnings("deprecation")
 public static void init(String projectName)
 {
 	name=projectName;
 	airdFile=projectName+".aird";
 	melodyFile=projectName+".melodymodeller";
 	metaFile=projectName+".afm";
-	siriusSession=null;
-	Collection<Session> sessions = SessionManager.INSTANCE.getSessions();
-	System.out.println("Currently active sessions:");
-	for(Session s:sessions)
-	{
-		if(s.getSessionResource().getURI().toString().endsWith(airdFile))
-		{
-			siriusSession=s;
-		}
-	}
+	siriusSession=SessionManager.INSTANCE.getSession(URI.createPlatformResourceURI("/"+name+"/"+airdFile), new NullProgressMonitor());
 	if(siriusSession==null)
 	{
-		System.out.println("[TestGenerator] Unable to create session for project: "+projectName);
+		System.out.println("[TestGen Error] Unable to create session for project: "+projectName);
 	}
 	else
 	{
-		System.out.println("[TestGenerator] AIRD Session created for project: "+projectName);
+		System.out.println("[TestGen Info] AIRD Session created for project: "+projectName);
 		System.out.println("Session Resource Have the following contents:");
 		for(EObject e: siriusSession.getSessionResource().getContents())
 		{
@@ -70,27 +62,21 @@ public static void init(String projectName)
 	
 }
 /*
- * @param TODO
- * Description: TODO
- * @return TODO
+ * @return airdFile the name of aird file with extension
  * */
 public static String getAird()
 {
 	return airdFile;
 }
 /*
- * @param TODO
- * Description: TODO
- * @return TODO
+ * @return melodyFile the name of melodymodeller file with extension
  * */
 public static String getMelody()
 {
 	return melodyFile;
 }
 /*
- * @param TODO
- * Description: TODO
- * @return TODO
+ * @return afmFile the name of metadata file with extension
  * */
 public static String getMata()
 {

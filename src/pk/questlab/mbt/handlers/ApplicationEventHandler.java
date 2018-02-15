@@ -2,9 +2,9 @@
  * @author Muhammad Abbas
  * (c) 2018, QUEST Lab, Pakistan
  * @version 0.1
- * TODO
+ * Auto generated class to handle application events this calls our ApplicationUIHandler.init to init UI
  */
-package pk.questlab.capella.testgenerator.handlers;
+package pk.questlab.mbt.handlers;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
