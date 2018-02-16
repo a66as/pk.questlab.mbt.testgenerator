@@ -39,25 +39,7 @@ public static void init(String projectName)
 	else
 	{
 		System.out.println("[TestGen Info] AIRD Session created for project: "+projectName);
-		System.out.println("Session Resource Have the following contents:");
-		for(EObject e: siriusSession.getSessionResource().getContents())
-		{
-			System.out.println(e.eClass());
-			if(e instanceof DSemanticDiagramImpl || e instanceof DSemanticDiagram)
-			{
-				System.out.println("Diagram: "+((DSemanticDiagramImpl)e).getName());
-			}
-		}
-		//DAnalysisImpl root=(DAnalysisImpl) siriusSession.getSessionResource().getContents().get(0);
-		//DViewImpl dView=(DViewImpl) root.getOwnedViews().get(0);
-		//DRepresentation myRepresentation = dView.getOwnedRepresentationDescriptors().get(0).getRepresentation();
-		//System.out.println(myRepresentation.getName());
-		//TreeIterator<EObject> melodyIterator= capellaProject.getOwnedModelRoots().get(0).eAllContents();
-		//while(melodyIterator.hasNext())
-		//{
-			//EObject next= melodyIterator.next();
-				//System.out.println(next.eClass().getName());
-		//}
+		GenerationHelper.getInstance().initDiagramResources(siriusSession.getSessionResource());
 	}
 	
 }

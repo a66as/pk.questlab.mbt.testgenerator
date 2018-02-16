@@ -34,14 +34,15 @@ public class ApplicationUIHandler {
 		{
 			projectsList.add(p.getName());
 		}
-		JFrame f= new JFrame();  
+		JFrame f= new JFrame();
+		JLabel notification= new JLabel("No projects in workspace!");
 		JDialog projectsDialog;
 		JComboBox<String> projectsDropDown= new JComboBox<String>();
 		for(String s:projectsList)
 		{
 			projectsDropDown.addItem(s);
 		}
-		projectsDialog = new JDialog(f , "Select a Project", true);  
+		projectsDialog = new JDialog(f , "Select a Project", true); 
 		projectsDialog.setLayout( new FlowLayout() );  
         projectsDialog.add(projectsDropDown);
         JButton doneBtn = new JButton ("Generate"); 
@@ -49,13 +50,18 @@ public class ApplicationUIHandler {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				projectsDialog.setVisible(false);
-				System.out.println("[TestGen Info] Selected Project:"+projectsDropDown.getSelectedItem().toString());
-				ProjectHelper.init(projectsDropDown.getSelectedItem().toString());
-				
+				if(!projectsDropDown.getSelectedItem().toString().isEmpty())
+				{
+					projectsDialog.setVisible(false);
+					System.out.println("[TestGen Info] Selected Project:"+projectsDropDown.getSelectedItem().toString());
+					ProjectHelper.init(projectsDropDown.getSelectedItem().toString());
+				}
 			}
 		});
-        projectsDialog.add(doneBtn);   
+        projectsDialog.add(doneBtn); 
+        notification.setLocation(0, 15);
+        if(projectsList.isEmpty() || projectsList.size()==0)
+        	projectsDialog.add(notification);
         projectsDialog.setSize(330,100);    
         projectsDialog.setVisible(true);	
 	}
