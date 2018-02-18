@@ -2,16 +2,20 @@ package pk.questlab.mbt.testgenerator.diagrams;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.sirius.viewpoint.DRepresentation;
 
-public abstract class MBTViewPoint {
-	private EList<EObject>ownedDiagrams;
-	public abstract void printViewPoint();
-	public MBTViewPoint(EList diagrams)
+public class MBTViewPoint {
+	protected static EList<DRepresentation>commonDiagrams;
+	protected MBTViewPoint()
 	{
 		
 	}
-	public EList getOwnedDiagrams()
+	public MBTViewPoint(EList<DRepresentation> d)
 	{
-		return ownedDiagrams;
+		commonDiagrams=d;
+	}
+	public EList getCommonDiagrams()
+	{
+		return commonDiagrams;
 	}
 }
