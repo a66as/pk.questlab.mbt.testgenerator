@@ -21,4 +21,8 @@ public class OAViewPoint extends MBTViewPoint {
 	{
 		return ownedDiagrams;
 	}
+	public void dispose()
+	{
+		ownedDiagrams.clear();
+	}
 }

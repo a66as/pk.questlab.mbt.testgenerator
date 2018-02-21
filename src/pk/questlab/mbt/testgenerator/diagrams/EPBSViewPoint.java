@@ -21,5 +21,9 @@ public class EPBSViewPoint extends MBTViewPoint {
 	{
 		return ownedDiagrams;
 	}
+	public void dispose()
+	{
+		ownedDiagrams.clear();
+	}
 
 }

@@ -23,6 +23,8 @@ import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.DRepresentationElement;
 import org.eclipse.sirius.viewpoint.DView;
+import org.polarsys.capella.core.data.capellacore.CapellaElement;
+import org.polarsys.capella.core.data.interaction.impl.ScenarioImpl;
 import org.polarsys.capella.core.data.oa.impl.OperationalContextImpl;
 
 import pk.questlab.mbt.testgenerator.diagrams.DiagramResources;
@@ -35,7 +37,6 @@ import pk.questlab.mbt.testgenerator.diagrams.SAViewPoint;
 
 public class GenerationHelper {
 	private static GenerationHelper INSTANCE=null;
-	ArrayList<DRepresentation>common= new ArrayList<DRepresentation>();
 	ArrayList<DRepresentation>oa= new ArrayList<DRepresentation>();
 	ArrayList<DRepresentation>sa= new ArrayList<DRepresentation>();
 	ArrayList<DRepresentation>pa= new ArrayList<DRepresentation>();
@@ -51,7 +52,27 @@ public class GenerationHelper {
 			{
 				if(((DViewSpec)(drd.eContainer())).getViewpoint().getName().toLowerCase().toString().equals(new String("common"))) // view point
 				{
-					common.add(drd.getRepresentation());
+					String temp=((CapellaElement)drd.getTarget()).getFullLabel().toLowerCase(); 
+					if(temp.contains("/operational analysis/"))
+					{
+						oa.add(drd.getRepresentation());
+					}
+					else if(temp.contains("/logical architecture/"))
+					{
+						la.add(drd.getRepresentation());
+					}
+					else if(temp.contains("/system analysis/"))
+					{
+						sa.add(drd.getRepresentation());
+					}
+					else if(temp.contains("/physical architecture/"))
+					{
+						pa.add(drd.getRepresentation());
+					}
+					else if(temp.contains("/epbs architecture/"))
+					{
+						epbs.add(drd.getRepresentation());
+					}
 				}
 				else if(((DViewSpec)(drd.eContainer())).getViewpoint().getName().toLowerCase().toString().equals(new String("logical architecture"))) // view point
 				{
@@ -73,23 +94,44 @@ public class GenerationHelper {
 				{
 					epbs.add(drd.getRepresentation());
 				}
-				//System.out.println(((DViewSpec)(drd.eContainer())).getViewpoint().getName().toLowerCase().toString());
-				//System.out.println(drd.getDescription().getName()); // full type in capella
-				//System.out.println("-->"+drd.getRepresentation().getName()+"/"+drd.getDescription().getLabel()); // diagram name
 			}
 		}
-		MBTViewPoint capellaCommon= new MBTViewPoint((ECollections.asEList(common)));
-		System.out.println("Number of common diagrams: "+capellaCommon.getCommonDiagrams().size());
-		SAViewPoint capellaSA= new SAViewPoint(ECollections.asEList(sa));
-		System.out.println("Number of system diagrams: "+capellaSA.getOwnedDiagrams().size());
+		MBTViewPoint capellaCommon= new MBTViewPoint();
 		OAViewPoint capellaOA= new OAViewPoint(ECollections.asEList(oa));
-		System.out.println("Number of operational diagrams: "+capellaOA.getOwnedDiagrams().size());
+		System.out.println("Number of OA diagrams: "+capellaOA.getOwnedDiagrams().size());
+		for(DRepresentation d: capellaOA.getOwnedDiagrams())
+		{
+			System.out.println("-"+d.getName());
+		}
+		SAViewPoint capellaSA= new SAViewPoint(ECollections.asEList(sa));
+		System.out.println("Number of SA diagrams: "+capellaSA.getOwnedDiagrams().size());
+		for(DRepresentation d: capellaSA.getOwnedDiagrams())
+		{
+			System.out.println("-"+d.getName());
+		}
 		LAViewPoint capellaLA= new LAViewPoint(ECollections.asEList(la));
-		System.out.println("Number of logical diagrams: "+capellaLA.getOwnedDiagrams().size());
+		System.out.println("Number of LA diagrams: "+capellaLA.getOwnedDiagrams().size());
+		for(DRepresentation d: capellaLA.getOwnedDiagrams())
+		{
+			System.out.println("-"+d.getName());
+		}
 		PAViewPoint capellaPA= new PAViewPoint(ECollections.asEList(pa));
-		System.out.println("Number of physical diagrams: "+capellaPA.getOwnedDiagrams().size());
+		System.out.println("Number of PA diagrams: "+capellaPA.getOwnedDiagrams().size());
+		for(DRepresentation d: capellaPA.getOwnedDiagrams())
+		{
+			System.out.println("-"+d.getName());
+		}
 		EPBSViewPoint capellaEPBS= new EPBSViewPoint(ECollections.asEList(epbs));
-		System.out.println("Number of epbs diagrams: "+capellaEPBS.getOwnedDiagrams().size());
+		System.out.println("Number of EPBS diagrams: "+capellaEPBS.getOwnedDiagrams().size());
+		for(DRepresentation d: capellaEPBS.getOwnedDiagrams())
+		{
+			System.out.println("-"+d.getName());
+		}
+		capellaOA.dispose();
+		capellaSA.dispose();
+		capellaLA.dispose();
+		capellaPA.dispose();
+		capellaEPBS.dispose();
 	}
 	public static GenerationHelper getInstance()
 	{
