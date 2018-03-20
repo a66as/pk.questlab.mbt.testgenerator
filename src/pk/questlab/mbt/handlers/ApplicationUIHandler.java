@@ -53,6 +53,8 @@ public class ApplicationUIHandler {
 				if(!projectsDropDown.getSelectedItem().toString().isEmpty())
 				{
 					projectsDialog.setVisible(false);
+					System.out.println("================================================================================================");
+					System.out.println("//Context UI Handler");
 					System.out.println("[TestGen Info] Selected Project:"+projectsDropDown.getSelectedItem().toString());
 					ProjectHelper.init(projectsDropDown.getSelectedItem().toString());
 				}

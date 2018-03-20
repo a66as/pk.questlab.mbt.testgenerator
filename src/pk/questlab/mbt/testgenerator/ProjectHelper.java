@@ -27,6 +27,7 @@ private static Session siriusSession;
 @SuppressWarnings("deprecation")
 public static void init(String projectName)
 {
+	System.out.println("// Context projectHelper::init");
 	name=projectName;
 	airdFile=projectName+".aird";
 	melodyFile=projectName+".melodymodeller";
