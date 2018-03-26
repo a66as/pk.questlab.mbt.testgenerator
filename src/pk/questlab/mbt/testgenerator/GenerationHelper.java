@@ -46,6 +46,7 @@ import org.polarsys.capella.core.data.capellacommon.util.CapellacommonSwitch;
 import org.polarsys.capella.core.data.capellacore.CapellaElement;
 import org.polarsys.capella.core.data.capellacore.CapellacoreFactory;
 import org.polarsys.capella.core.data.capellacore.CapellacorePackage;
+import org.polarsys.capella.core.data.interaction.Scenario;
 import org.polarsys.capella.core.data.interaction.impl.ScenarioImpl;
 import org.polarsys.capella.core.data.oa.impl.OperationalContextImpl;
 import org.polarsys.capella.core.model.handler.validation.CapellaDiagnostician;
@@ -57,6 +58,7 @@ import pk.questlab.mbt.testgenerator.diagrams.MBTViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.OAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.PAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.SAViewPoint;
+import pk.questlab.mbt.testgenerator.diagrams.helpers.ExchangeScenarioHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ModesStatesHelper;
 
 public class GenerationHelper {
@@ -127,22 +129,14 @@ public class GenerationHelper {
 		for(DRepresentation d: capellaOA.getOwnedDiagrams())
 		{
 			System.out.println("-"+d.getName());
+			//[h01]hard code for testing statemodes helper
 			if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("Modes & States").toLowerCase()))
 			{
 				RegionImpl diagramRoot=(RegionImpl) DSemanticDiagramHelper.getRootContent((DSemanticDiagram) d); // will always retuen only one region
-				if(diagramRoot instanceof RegionImpl)
-				{
-					RegionImpl rootRegion= (RegionImpl)diagramRoot;
-					for(AbstractState as:rootRegion.getOwnedStates())
-					{
-						if(as instanceof InitialPseudoStateImpl)
-						{
-							InitialPseudoStateImpl alpha= (InitialPseudoStateImpl)as;
-							ModesStatesHelper.getInstance().prinModeState(alpha);
-						}
-					}
-				}
+				ModesStatesHelper.getInstance().init(diagramRoot);
+				ModesStatesHelper.getInstance().prinModeState();
 			}
+			//[/h01]
 		}
 		SAViewPoint capellaSA= new SAViewPoint(ECollections.asEList(sa));
 		System.out.println("Number of SA diagrams: "+capellaSA.getOwnedDiagrams().size());
@@ -155,6 +149,13 @@ public class GenerationHelper {
 		for(DRepresentation d: capellaLA.getOwnedDiagrams())
 		{
 			System.out.println("-"+d.getName());
+			//[h02] hard code for testing scenario and functional chain helper
+			if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("component exchanges scenario")))
+			{
+				Scenario diagramRoot=(Scenario) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
+				ExchangeScenarioHelper.getInstance().init(diagramRoot);
+				ExchangeScenarioHelper.getInstance().prinScenario();
+			}
 		}
 		PAViewPoint capellaPA= new PAViewPoint(ECollections.asEList(pa));
 		System.out.println("Number of PA diagrams: "+capellaPA.getOwnedDiagrams().size());

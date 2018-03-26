@@ -1,3 +1,8 @@
+/**
+ * @author Muhammad Abbas
+ * (c) 2018, QUEST Lab, Pakistan
+ * @version 0.1
+ */
 package pk.questlab.mbt.testgenerator.diagrams.helpers;
 
 import java.util.ArrayList;
@@ -7,12 +12,18 @@ import org.polarsys.capella.common.data.behavior.AbstractEvent;
 import org.polarsys.capella.core.data.capellacommon.AbstractState;
 import org.polarsys.capella.core.data.capellacommon.StateTransition;
 import org.polarsys.capella.core.data.capellacommon.impl.InitialPseudoStateImpl;
+import org.polarsys.capella.core.data.capellacommon.impl.RegionImpl;
 
 public class ModesStatesHelper {
 	private static ModesStatesHelper INSTANCE;
+	private static RegionImpl root;
 	private ModesStatesHelper()
 	{
 		
+	}
+	public static void init(RegionImpl region)
+	{
+		root=region;
 	}
 	public static ModesStatesHelper getInstance()
 	{
@@ -27,12 +38,19 @@ public class ModesStatesHelper {
 	 * Description: This function uses the alpha and send it to printStateRecursively to print data about each state
 	 * Dependency: printStateRecursively(AbstractState, ArrayList)
 	 * */
-	public void prinModeState(InitialPseudoStateImpl alpha)
+	public void prinModeState()
 	{
-		// visited list to avoid loops in Diagram
+		// Visited list to avoid loops in Diagram
 		ArrayList<AbstractState> visited= new ArrayList<AbstractState>();
-		//Prints states recursively
-		printStateRecursively(alpha, visited);
+		// Prints states recursively
+		for(AbstractState as:root.getOwnedStates())
+		{
+			if(as instanceof InitialPseudoStateImpl)
+			{
+				InitialPseudoStateImpl alpha= (InitialPseudoStateImpl)as;
+				printStateRecursively(alpha, visited);
+			}
+		}
 	}
 	/*
 	 * @param AbstractState state
@@ -69,9 +87,9 @@ public class ModesStatesHelper {
 		result+=t.getName()+" "+t.getTriggerDescription();
 		if(t.getTriggers()!=null && t.getTriggers().size()>0)
 		{
-			for(AbstractEvent triger:t.getTriggers())
+			for(AbstractEvent trigger:t.getTriggers())
 			{
-				result+=triger.getName();
+				result+=trigger.getName();
 			}
 		}
 		result+=" / ";

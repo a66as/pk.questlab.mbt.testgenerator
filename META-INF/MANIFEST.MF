@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sirius.diagram,
  org.polarsys.capella.core.platform.sirius.ui.navigator,
  org.polarsys.kitalpha.ad.metadata,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.polarsys.capella.core.data.gen
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
