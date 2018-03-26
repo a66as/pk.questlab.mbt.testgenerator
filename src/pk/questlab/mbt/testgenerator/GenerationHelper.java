@@ -46,6 +46,7 @@ import org.polarsys.capella.core.data.capellacommon.util.CapellacommonSwitch;
 import org.polarsys.capella.core.data.capellacore.CapellaElement;
 import org.polarsys.capella.core.data.capellacore.CapellacoreFactory;
 import org.polarsys.capella.core.data.capellacore.CapellacorePackage;
+import org.polarsys.capella.core.data.fa.FunctionalChain;
 import org.polarsys.capella.core.data.interaction.Scenario;
 import org.polarsys.capella.core.data.interaction.impl.ScenarioImpl;
 import org.polarsys.capella.core.data.oa.impl.OperationalContextImpl;
@@ -59,6 +60,7 @@ import pk.questlab.mbt.testgenerator.diagrams.OAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.PAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.SAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ExchangeScenarioHelper;
+import pk.questlab.mbt.testgenerator.diagrams.helpers.FunctionalChainHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ModesStatesHelper;
 
 public class GenerationHelper {
@@ -155,6 +157,12 @@ public class GenerationHelper {
 				Scenario diagramRoot=(Scenario) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
 				ExchangeScenarioHelper.getInstance().init(diagramRoot);
 				ExchangeScenarioHelper.getInstance().prinScenario();
+			}
+			else if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("functional chain description")))
+			{
+				FunctionalChain modelRoot=(FunctionalChain) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
+				FunctionalChainHelper.getInstance().init(modelRoot);
+				FunctionalChainHelper.getInstance().printFunctionalChain();
 			}
 		}
 		PAViewPoint capellaPA= new PAViewPoint(ECollections.asEList(pa));
