@@ -50,6 +50,7 @@ import org.polarsys.capella.core.data.fa.FunctionalChain;
 import org.polarsys.capella.core.data.interaction.Scenario;
 import org.polarsys.capella.core.data.interaction.impl.ScenarioImpl;
 import org.polarsys.capella.core.data.oa.impl.OperationalContextImpl;
+import org.polarsys.capella.core.diagram.helpers.traceability.DiagramTraceabilityHelper;
 import org.polarsys.capella.core.model.handler.validation.CapellaDiagnostician;
 
 import pk.questlab.mbt.testgenerator.diagrams.DiagramResources;
@@ -62,6 +63,7 @@ import pk.questlab.mbt.testgenerator.diagrams.SAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ExchangeScenarioHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.FunctionalChainHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ModesStatesHelper;
+import pk.questlab.mbt.testgenerator.templates.GtestTemplate;
 
 public class GenerationHelper {
 	private static GenerationHelper INSTANCE=null;
@@ -130,13 +132,13 @@ public class GenerationHelper {
 		System.out.println("Number of OA diagrams: "+capellaOA.getOwnedDiagrams().size());
 		for(DRepresentation d: capellaOA.getOwnedDiagrams())
 		{
-			System.out.println("-"+d.getName());
+			//System.out.println("-"+d.getName());
 			//[h01]hard code for testing statemodes helper
 			if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("Modes & States").toLowerCase()))
 			{
-				RegionImpl diagramRoot=(RegionImpl) DSemanticDiagramHelper.getRootContent((DSemanticDiagram) d); // will always retuen only one region
-				ModesStatesHelper.getInstance().init(diagramRoot);
-				ModesStatesHelper.getInstance().prinModeState();
+				//RegionImpl diagramRoot=(RegionImpl) DSemanticDiagramHelper.getRootContent((DSemanticDiagram) d); // will always retuen only one region
+				//ModesStatesHelper.getInstance().init(diagramRoot);
+				//ModesStatesHelper.getInstance().prinModeState();
 			}
 			//[/h01]
 		}
@@ -144,38 +146,40 @@ public class GenerationHelper {
 		System.out.println("Number of SA diagrams: "+capellaSA.getOwnedDiagrams().size());
 		for(DRepresentation d: capellaSA.getOwnedDiagrams())
 		{
-			System.out.println("-"+d.getName());
+			//System.out.println("-"+d.getName());
 		}
 		LAViewPoint capellaLA= new LAViewPoint(ECollections.asEList(la));
 		System.out.println("Number of LA diagrams: "+capellaLA.getOwnedDiagrams().size());
 		for(DRepresentation d: capellaLA.getOwnedDiagrams())
 		{
-			System.out.println("-"+d.getName());
+			//System.out.println("-"+d.getName());
 			//[h02] hard code for testing scenario and functional chain helper
 			if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("component exchanges scenario")))
 			{
 				Scenario diagramRoot=(Scenario) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
-				ExchangeScenarioHelper.getInstance().init(diagramRoot);
-				ExchangeScenarioHelper.getInstance().prinScenario();
+				System.out.println("-"+d.getName());
+				ExchangeScenarioHelper.getInstance().init(diagramRoot,d.getName());
+				GtestTemplate suite=ExchangeScenarioHelper.getInstance().getTestSuite();
+				ProjectHelper.addToProject(suite);
 			}
 			else if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("functional chain description")))
 			{
-				FunctionalChain modelRoot=(FunctionalChain) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
-				FunctionalChainHelper.getInstance().init(modelRoot);
-				FunctionalChainHelper.getInstance().printFunctionalChain();
+				//FunctionalChain modelRoot=(FunctionalChain) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
+				//FunctionalChainHelper.getInstance().init(modelRoot);
+				//FunctionalChainHelper.getInstance().printFunctionalChain();
 			}
 		}
 		PAViewPoint capellaPA= new PAViewPoint(ECollections.asEList(pa));
 		System.out.println("Number of PA diagrams: "+capellaPA.getOwnedDiagrams().size());
 		for(DRepresentation d: capellaPA.getOwnedDiagrams())
 		{
-			System.out.println("-"+d.getName());
+			//System.out.println("-"+d.getName());
 		}
 		EPBSViewPoint capellaEPBS= new EPBSViewPoint(ECollections.asEList(epbs));
 		System.out.println("Number of EPBS diagrams: "+capellaEPBS.getOwnedDiagrams().size());
 		for(DRepresentation d: capellaEPBS.getOwnedDiagrams())
 		{
-			System.out.println("-"+d.getName());
+			//System.out.println("-"+d.getName());
 		}
 		viewpoints.add(capellaOA);
 		viewpoints.add(capellaSA);

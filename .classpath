@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="Libs/Sirius_Dependencies/com.google.inject.source_3.0.0.v201312141243.jar"/>
 	<classpathentry kind="lib" path="Libs/Sirius_Dependencies/org.eclipse.sirius.ext.base_4.1.4.201703211427.jar"/>
 	<classpathentry kind="lib" path="Libs/Sirius_Dependencies/org.eclipse.sirius_4.1.4.201703211427.jar"/>
+	<classpathentry kind="lib" path="Libs/Capella_Lib/org.polarsys.capella.core.diagram.helpers_1.0.0.2017-03-28_12-41-45.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
