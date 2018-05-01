@@ -23,6 +23,8 @@ import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.sirius.diagram.impl.DSemanticDiagramImpl;
 
 import pk.questlab.mbt.testgenerator.templates.GtestTemplate;
+import pk.questlab.mbt.testgenerator.templates.PySuiteTemplate;
+import pk.questlab.mbt.testgenerator.templates.PyTestTemplate;
 
 public class ProjectHelper {
 private static String name;
@@ -126,5 +128,55 @@ public static boolean addToProject(GtestTemplate suite)
 			}
 		}
 	return false;
+}
+public static boolean addToProject(PySuiteTemplate suite) {
+	IFolder folder = project.getFolder("test");
+	
+	try {
+		project.refreshLocal(2, new NullProgressMonitor());
+	} catch (CoreException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	try {
+		folder.refreshLocal(2, new NullProgressMonitor());
+	} catch (CoreException e2) {
+		// TODO Auto-generated catch block
+		e2.printStackTrace();
+	}
+	if (!folder.exists())
+		try {
+			folder.create(IResource.NONE, true, null);
+			
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		IFile file = folder.getFile(suite.getSuiteName()+".py");
+		if (!file.exists()) {
+		    byte[] bytes = suite.getExecutableSuiteText().getBytes();
+		    InputStream source = new ByteArrayInputStream(bytes);
+		    try {
+				file.create(source, IResource.NONE, null);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    return true;
+		}
+		else{
+			byte[] bytes = suite.getExecutableSuiteText().getBytes();
+			InputStream source = new ByteArrayInputStream(bytes);
+			try {
+				file.delete(true, new NullProgressMonitor());
+				file.create(source, IResource.NONE, null);
+				return true;
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	return false;
+	
 }
 }

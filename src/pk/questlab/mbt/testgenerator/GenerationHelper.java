@@ -60,10 +60,13 @@ import pk.questlab.mbt.testgenerator.diagrams.MBTViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.OAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.PAViewPoint;
 import pk.questlab.mbt.testgenerator.diagrams.SAViewPoint;
+import pk.questlab.mbt.testgenerator.diagrams.helpers.SneakTestGenerationHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ExchangeScenarioHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.FunctionalChainHelper;
 import pk.questlab.mbt.testgenerator.diagrams.helpers.ModesStatesHelper;
 import pk.questlab.mbt.testgenerator.templates.GtestTemplate;
+import pk.questlab.mbt.testgenerator.templates.PySuiteTemplate;
+import pk.questlab.mbt.testgenerator.templates.PyTestTemplate;
 
 public class GenerationHelper {
 	private static GenerationHelper INSTANCE=null;
@@ -147,27 +150,28 @@ public class GenerationHelper {
 		for(DRepresentation d: capellaSA.getOwnedDiagrams())
 		{
 			//System.out.println("-"+d.getName());
-		}
-		LAViewPoint capellaLA= new LAViewPoint(ECollections.asEList(la));
-		System.out.println("Number of LA diagrams: "+capellaLA.getOwnedDiagrams().size());
-		for(DRepresentation d: capellaLA.getOwnedDiagrams())
-		{
-			//System.out.println("-"+d.getName());
 			//[h02] hard code for testing scenario and functional chain helper
 			if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("component exchanges scenario")))
 			{
 				Scenario diagramRoot=(Scenario) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
 				System.out.println("-"+d.getName());
 				ExchangeScenarioHelper.getInstance().init(diagramRoot,d.getName());
-				GtestTemplate suite=ExchangeScenarioHelper.getInstance().getTestSuite();
+				PySuiteTemplate suite=ExchangeScenarioHelper.getInstance().getPySuite();
 				ProjectHelper.addToProject(suite);
 			}
-			else if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("functional chain description")))
+			else if(((DSemanticDiagram)d).getDescription().getName().toLowerCase().equals(new String("Modes & States").toLowerCase()))
 			{
-				//FunctionalChain modelRoot=(FunctionalChain) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
-				//FunctionalChainHelper.getInstance().init(modelRoot);
-				//FunctionalChainHelper.getInstance().printFunctionalChain();
+				RegionImpl modelRoot=(RegionImpl) DSemanticDiagramHelper.getRootContent((DSemanticDiagram)d);
+				SneakTestGenerationHelper.getInstance().init(modelRoot, capellaSA);
+				PySuiteTemplate suite=SneakTestGenerationHelper.getInstance().getPySuite();
+				ProjectHelper.addToProject(suite);
 			}
+		}
+		LAViewPoint capellaLA= new LAViewPoint(ECollections.asEList(la));
+		System.out.println("Number of LA diagrams: "+capellaLA.getOwnedDiagrams().size());
+		for(DRepresentation d: capellaLA.getOwnedDiagrams())
+		{
+			//System.out.println("-"+d.getName());
 		}
 		PAViewPoint capellaPA= new PAViewPoint(ECollections.asEList(pa));
 		System.out.println("Number of PA diagrams: "+capellaPA.getOwnedDiagrams().size());
