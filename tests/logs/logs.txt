@@ -1,0 +1,112 @@
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_armTest (__main__.TestAltitudeHold) ... >>> Arming motors
+ok
+test_autolandTest (__main__.TestAltitudeHold) ... >>> Disarming motors
+ok
+test_holdaltitudeTest (__main__.TestAltitudeHold) ... >>> Arming motors
+>>> EKF2 IMU0 in-flight yaw alignment complete
+>>> EKF2 IMU1 in-flight yaw alignment complete
+ok
+test_takeoffTest (__main__.TestAltitudeHold) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 74.069s
+
+OK
+
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_armTest (__main__.TestArmDisarm) ... >>> Arming motors
+ok
+test_disarmTest (__main__.TestArmDisarm) ... >>> Disarming motors
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 6.007s
+
+OK
+
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_armTest (__main__.TestAutoLand) ... >>> Arming motors
+ok
+test_autolandTest (__main__.TestAutoLand) ... >>> Disarming motors
+ok
+test_takeoffTest (__main__.TestAutoLand) ... FAIL
+
+======================================================================
+FAIL: test_takeoffTest (__main__.TestAutoLand)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "AutoLand.py", line 20, in test_takeoffTest
+    self.assertTrue(vehicle.location.global_relative_frame.alt>19)
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 3 tests in 50.049s
+
+FAILED (failures=1)
+
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_armTest (__main__.TestBackToLaunch) ... >>> Arming motors
+ok
+test_flytolocationTest (__main__.TestBackToLaunch) ... >>> EKF2 IMU0 in-flight yaw alignment complete
+>>> EKF2 IMU1 in-flight yaw alignment complete
+ok
+test_returntolaunchlocationTest (__main__.TestBackToLaunch) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 68.068s
+
+OK
+
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_armTest (__main__.TestFlyToLocation) ... >>> Arming motors
+ok
+test_flytolocationTest (__main__.TestFlyToLocation) ... >>> EKF2 IMU0 in-flight yaw alignment complete
+>>> EKF2 IMU1 in-flight yaw alignment complete
+ok
+test_takeoffTest (__main__.TestFlyToLocation) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 46.050s
+
+OK
+
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_armTest (__main__.TestPlanExecuteMission) ... >>> Arming motors
+ok
+test_loadmissionfileTest (__main__.TestPlanExecuteMission) ...  Clear any existing commands
+ Define/add new commands.
+ Upload new commands to vehicle
+>>> Disarming motors
+>>> Flight plan received
+>>> Arming motors
+>>> EKF2 IMU0 in-flight yaw alignment complete
+>>> EKF2 IMU1 in-flight yaw alignment complete
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 33.432s
+
+OK
+
+>>> APM:Copter V3.5.5 (27229c83)
+>>> Frame: QUAD
+test_ALTHOLDdisarmSneakTest (__main__.TestSneakPath) ... ok
+test_ALTHOLDtakeoffSneakTest (__main__.TestSneakPath) ... ok
+test_DISARMEDflytolocationSneakTest (__main__.TestSneakPath) ... ok
+test_DISARMEDholdaltitudeSneakTest (__main__.TestSneakPath) ... ok
+test_DISARMEDreturntolaunchlocationSneakTest (__main__.TestSneakPath) ... ok
+test_DISARMEDtakeoffSneakTest (__main__.TestSneakPath) ... ok
+test_FLYINGdisarmSneakTest (__main__.TestSneakPath) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 125.133s
+
+OK
+
